@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="../static/cibc.ico">
+	<title>CIBC Data Studio | OTC Break Owner Predictor - Purge Result</title>
+	<link rel="stylesheet" type="text/css" href="../static/component.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/htmlTable.js"></script>
+  <style>
+      table{
+        border: 4px double black;
+        table-layout: auto;
+        position: relative;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+  </style>
+</head>
+
+<body onLoad="buildHtmlTable('#StatTable');">
+    <div class="Logo">
+        <img class="logoSub" src="../static/CIBC_DataStudioLogo.png">
+        <h1 class="hTitle1">OTC Data Statistics after Purge</h1>
+		<br>
+		<br>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <div id="toHide" class="content">
+        <table class="table" id="StatTable" align="center" cellpadding="8">
+            <caption><b><u>After Purge Model Stats</u></b></caption>
+        </table>
+        <h3></h3>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+<form action="/train">
+  <input class="GoBack_Button" value="Go to Admin Home" type="submit">
+</form>  
+
+</body>
+
+
+
+<script>
+    var errorOcurred = '{{ errorOcurred }}';
+    var errorInfo = '{{ errorInfo }}';
+
+    var errorBool = errorOcurred == 'True'
+
+    if (errorBool){
+        window.alert(errorInfo);
+    }
+    
+    var currentjson_table = '{{ currentjsonTable|tojson|safe }}';
+
+    function decodeJSON(encodedJSON) {
+            var decodedJSON = $('<div/>').html(encodedJSON).text();
+            return $.parseJSON(decodedJSON);
+    }
+
+    var currentTable = decodeJSON(currentjson_table);
+
+    // Builds the HTML Table out of List.
+    function buildHtmlTable(selector) {
+      var columns = addAllColumnHeaders(currentTable, selector);
+
+      for (var i = 0; i < currentTable.length; i++) {
+        var row$ = $('<tr/>');
+        for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+          var cellValue = currentTable[i][columns[colIndex]];
+          if (cellValue == null) cellValue = "";
+          cellValue += "     ";
+          row$.append($('<td/>').html(cellValue));
+        }
+        $(selector).append(row$);
+      }
+    }
+
+    // Adds a header row to the table and returns the set of columns.
+    // Need to do union of keys from all records as some records may not contain
+    // all records.
+    function addAllColumnHeaders(resultList, selector) {
+      var columnSet = [];
+      var headerTr$ = $('<tr/>');
+
+      for (var i = 0; i < resultList.length; i++) {
+        var rowHash = resultList[i];
+        for (var key in rowHash) { 
+          if ($.inArray(key, columnSet) == -1) {
+            columnSet.push(key);
+            key += "     ";
+            headerTr$.append($('<th/>').html(key));
+          }
+        }
+      }
+      $(selector).append(headerTr$);
+      return columnSet;
+    }
+</script>
+</html>

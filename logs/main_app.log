@@ -1,0 +1,4 @@
+2017-10-06 13:55:33,005 - INFO - Starting Application
+2017-10-06 13:55:33,005 - INFO - Loading configurations from config.ini
+2017-10-06 13:55:33,006 - INFO - Setting initial variables
+2017-10-06 13:55:33,007 - INFO - No pickle file found. Creating new otc_model class.

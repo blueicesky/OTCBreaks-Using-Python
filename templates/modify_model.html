@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>CIBC Data Studio | OTC Break Owner Predictor</title>
+		<link rel="shortcut icon" href="cibc.ico">
+        <link rel="stylesheet" href="../static/component.css" type="text/css">
+
+        <style type="text/css">
+            .foo{
+                font-size: 20px;
+                font-weight: 600;
+            }
+            div.demo {
+                display: table;
+                width: 100%;
+                table-layout: fixed;    /* For cells of equal size */
+            }
+            div.demo span {
+                display: table-cell;
+                text-align: center;
+            }
+        </style>
+        
+		<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
+	</head>
+	<div class="Logo">
+        <img class="logoSub" src="../static/CIBC_DataStudioLogo.png">
+				<!--<header class="header" align ="center" style="vertical-align: top">
+					<h1>OTC Regulatory Portfolio Reconciliation</h1>
+					<h2>Break Owner Predictor</h2>
+				</header>-->
+				<h1 class="hTitle1">OTC Model Admin Console</h1>
+				<h2 class="hTitle2">Manage Training Data</h2>
+				<br>
+				<br>
+	</div>
+	<body>
+        
+		<div class="container">
+            <div id="toHide" class="content">
+                <div class="box" align="center">
+                    <form action="{{ url_for('purge_model') }}" method=post>
+                        Select your date range:
+                        <input id="startDate" type="date" name="Start Date">
+                        <input id="endDate" type="date" name="End Date">
+                        <input value="Purge" type="submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <form action="/logout">
+            <input class="Admin_Button" value="Log Out" type="submit">
+        </form>
+
+        <form action="/train">
+            <input class="GoBack_Button" value="Go Back" type="submit">
+        </form>
+
+        <form action="/download_db_info">
+            <input class="Download_db_Button" value="Download database info" type="submit">
+        </form>
+                            
+        <footer>
+            <p class="random">For Demo, Please Contact <b>Bart Piwowar</b> - bart.piwowar@cibc.com</p>
+            <p class="random" align="right"> v0.1</p>
+        </footer>
+
+		<script src="../static/custom-file-input.js"></script>
+		<script src="../static/upload.js"></script>
+
+	</body>
+</html>
