@@ -14,7 +14,7 @@ Then run this:
 
 1) Clone the git repository
 ```shell
-git clone https://github.com/CIBCDataStudio/otc-breaks.git
+Not there
 ```
 
 2) Check status to see if the repo have succesfully been cloned.
